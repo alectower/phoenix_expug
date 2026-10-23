@@ -10,6 +10,8 @@ defmodule PhoenixExpug.Engine do
     escape_helper: ""
   ]
 
+  alias Expug.Error
+
   @doc """
   Precompiles the String file_path into a function defintion, using Calliope engine
   """
@@ -23,11 +25,12 @@ defmodule PhoenixExpug.Engine do
     try do
       file_path |> File.read! |> Expug.to_eex!(@expug_options)
     rescue
-      error in [Expug.Error] ->
-        reraise %Expug.Error{error |
-          message: "#{file_path}: " <> error.message}, System.stacktrace
+      error in [Error] ->
+        reraise %Error{error |
+          message: "#{file_path}: " <> error.message}, __STACKTRACE__
       error ->
-        reraise error, System.stacktrace
+        reraise error, __STACKTRACE__
     end
+
   end
 end

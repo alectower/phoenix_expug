@@ -19,14 +19,14 @@ defmodule PhoenixExpug.Mixfile do
   end
 
   def application do
-    [applications: [:phoenix]]
+    [extra_applications: [:logger]]
   end
 
   defp deps do
     [
       {:phoenix, ">= 1.1.0"},
       {:phoenix_html, ">= 2.3.0"},
-      {:expug, ">= 0.0.1"},
+      {:expug, github: "alectower/expug"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
